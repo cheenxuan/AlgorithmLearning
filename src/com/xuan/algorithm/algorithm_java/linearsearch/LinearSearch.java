@@ -1,7 +1,6 @@
 package com.xuan.algorithm.algorithm_java.linearsearch;
 
-import com.xuan.algorithm.algorithm_java.model.ArrayGenerator;
-import com.xuan.algorithm.algorithm_java.model.Student;
+import com.xuan.algorithm.algorithm_java.ArrayGenerator;
 
 public class LinearSearch {
 

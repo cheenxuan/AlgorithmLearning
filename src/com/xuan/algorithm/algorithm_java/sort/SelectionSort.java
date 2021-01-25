@@ -1,5 +1,8 @@
 package com.xuan.algorithm.algorithm_java.sort;
 
+import com.xuan.algorithm.algorithm_java.SortingHelper;
+import com.xuan.algorithm.algorithm_java.ArrayGenerator;
+
 public class SelectionSort {
 
     private SelectionSort() {
@@ -28,11 +31,28 @@ public class SelectionSort {
 
 
     public static void main(String[] args) {
-        Integer[] arr = {16, 56, 67, 45, 1, 5, 7, 9, 3, 54, 86};
-        SelectionSort.sort(arr);
-        for (int e : arr) {
-            System.out.print(e + " ");
+//        Integer[] arr = {16, 56, 67, 45, 1, 5, 7, 9, 3, 54, 86};
+//        SelectionSort.sort(arr);
+//        for (int e : arr) {
+//            System.out.print(e + " ");
+//        }
+//
+//        System.out.println("");
+//        Student[] students = {new Student("Alex", 123),
+//                new Student("Mia", 111),
+//                new Student("Chirs", 156)};
+//        SelectionSort.sort(students);
+//        for (Student stu : students) {
+//            System.out.println(stu);
+//        }
+
+        int[] dataSize = {10000, 100000};
+        for (int n : dataSize) {
+
+            Integer[] arr = ArrayGenerator.generateRandomArray(n, n);
+            SortingHelper.sortTest("SelectionSort", arr);
         }
+
 
     }
 }
