@@ -1,5 +1,6 @@
 package com.xuan.algorithm.algorithm_java;
 
+import com.xuan.algorithm.algorithm_java.sort.InsertionSort;
 import com.xuan.algorithm.algorithm_java.sort.SelectionSort;
 
 public class SortingHelper {
@@ -26,6 +27,8 @@ public class SortingHelper {
         long startTime = System.nanoTime();
         if (sortName.equals("SelectionSort"))
             SelectionSort.sort(arr);
+        else if(sortName.equals("InsertionSort"))
+            InsertionSort.sort(arr);
         long endTime = System.nanoTime();
 
         double time = (endTime - startTime) / 1000000000.0;
