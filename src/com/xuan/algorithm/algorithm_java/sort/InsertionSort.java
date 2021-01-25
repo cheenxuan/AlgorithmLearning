@@ -10,29 +10,29 @@ public class InsertionSort {
     public InsertionSort() {
     }
 
+//    public static <E extends Comparable<E>> void sort(E[] arr) {
+//
+//        for (int i = 0; i < arr.length; i++) {
+//            //将arr[i]插入到合适的位置
+//            for (int j = i; j - 1 >= 0; j--) {
+//                if (arr[j].compareTo(arr[j - 1]) < 0)
+//                    swap(arr, j, j - 1);
+//                else break;
+//            }
+//
+//            for (int j = i; j - 1 >= 0 && arr[j].compareTo(arr[j - 1]) < 0; j--)
+//                swap(arr, j, j - 1);
+//        }
+//    }
+
     public static <E extends Comparable<E>> void sort(E[] arr) {
-
-        for (int i = 0; i < arr.length; i++) {
-            //将arr[i]插入到合适的位置
-            for (int j = i; j - 1 >= 0; j--) {
-                if (arr[j].compareTo(arr[j - 1]) < 0)
-                    swap(arr, j, j - 1);
-                else break;
-            }
-
-            for (int j = i; j - 1 >= 0 && arr[j].compareTo(arr[j - 1]) < 0; j--)
-                swap(arr, j, j - 1);
-        }
-    }
-
-    public static <E extends Comparable<E>> void sort2(E[] arr){
 
         for (int i = 0; i < arr.length; i++) {
             //将arr[i]插入到合适的位置
             E t = arr[i];
             int j;
-            for (j = i; j -1 >= 0 && t.compareTo(arr[j - 1]) < 0; j--) {
-                arr[j] = arr[j -1];
+            for (j = i; j - 1 >= 0 && t.compareTo(arr[j - 1]) < 0; j--) {
+                arr[j] = arr[j - 1];
             }
             arr[j] = t;
         }
@@ -50,8 +50,15 @@ public class InsertionSort {
         for (int n : dataSize) {
             Integer[] arr = ArrayGenerator.generateRandomArray(n, n);
             Integer[] arr2 = Arrays.copyOf(arr,arr.length);
-            SortingHelper.sortTest("InsertionSort", arr);
-            SortingHelper.sortTest("InsertionSort2", arr2);
+            SortingHelper.sortTest("SelectionSort", arr);
+            SortingHelper.sortTest("InsertionSort", arr2);
+
+            System.out.println();
+
+            Integer[] arr3 = ArrayGenerator.generateOrderedArray(n);
+            SortingHelper.sortTest("SelectionSort", arr3);
+            SortingHelper.sortTest("InsertionSort", arr3);
+
         }
     }
 }
