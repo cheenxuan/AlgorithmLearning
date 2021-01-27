@@ -1,5 +1,7 @@
 package com.xuan.algorithm.algorithm_java.model;
 
+import com.xuan.algorithm.datastructure.Array;
+
 public class Student implements Comparable<Student> {
     private String name;
     private int stuNo;
@@ -55,5 +57,17 @@ public class Student implements Comparable<Student> {
     @Override
     public String toString() {
         return String.format("Student(name: %s, stuNo: %d)", name, stuNo);
+    }
+
+    public static void main(String[] args) {
+        Array<Student> arr = new Array<>();
+
+       arr.addLast(new Student("Alice",100));
+       arr.addLast(new Student("Cow",66));
+       arr.addLast(new Student("Charlie",88));
+
+        System.out.println(arr);
+
+
     }
 }

@@ -61,14 +61,7 @@ public class InsertionSort {
         for (int n : dataSize) {
             Integer[] arr = ArrayGenerator.generateRandomArray(n, n);
             Integer[] arr2 = Arrays.copyOf(arr, arr.length);
-            SortingHelper.sortTest("SelectionSort", arr);
             SortingHelper.sortTest("InsertionSort", arr2);
-
-            System.out.println();
-
-            Integer[] arr3 = ArrayGenerator.generateOrderedArray(n);
-            SortingHelper.sortTest("SelectionSort", arr3);
-            SortingHelper.sortTest("InsertionSort", arr3);
 
         }
     }
