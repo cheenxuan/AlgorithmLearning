@@ -1,17 +1,23 @@
 package com.xuan.algorithm.datastructure;
 
-
-public class LoopQueue<E> implements Queue<E> {
+/**
+ * 双端队列
+ *
+ * @param <E> 元素类型
+ */
+public class Deque<E> {
     private E[] data;
     private int front, tail;
+    private int size;
 
-    private LoopQueue(int capacity) {
+    private Deque(int capacity) {
         data = (E[]) new Object[capacity + 1];
         front = 0;
         tail = 0;
+        size = 0;
     }
 
-    public LoopQueue() {
+    public Deque() {
         this(10);
     }
 
@@ -19,35 +25,55 @@ public class LoopQueue<E> implements Queue<E> {
         return data.length - 1;
     }
 
-    @Override
     public int getSize() {
-        return (tail >= front) ? tail - front : tail + data.length - front;
+        return size;
     }
 
-    @Override
     public boolean isEmpty() {
         return front == tail;
     }
 
-    @Override
-    public void enqueue(E e) {
-        if ((tail + 1) % data.length == front)
+    public void addLast(E e) {
+        if (size == getCapacity())
             resize(getCapacity() * 2);
         data[tail] = e;
         tail = (tail + 1) % data.length;
+        size++;
     }
 
-    @Override
-    public E dequeue() {
+    public void addFront(E e) {
+        if (size == getCapacity())
+            resize(getCapacity() * 2);
+
+        front = front == 0 ? front = data.length - 1 : front - 1;
+        data[front] = e;
+        size++;
+    }
+
+
+    public E removeFront() {
         if (isEmpty())
             throw new IllegalArgumentException("Connot dequeue from a empty queue.");
         E ret = data[front];
         data[front] = null;
         front = (front + 1) % data.length;
+        size--;
 
-        if (getSize() == getCapacity() / 4 && getCapacity() / 2 != 0)
+        if (size == getCapacity() / 4 && getCapacity() / 2 != 0)
             resize(getCapacity() / 2);
 
+        return ret;
+    }
+
+    public E removeLast() {
+        if (isEmpty())
+            throw new IllegalArgumentException("Connot dequeue from a empty queue.");
+        tail = tail == 0 ? data.length - 1 : tail - 1;
+        E ret = data[tail];
+        data[tail] = null;
+        size--;
+        if (size == getCapacity() / 4 && getCapacity() / 2 != 0)
+            resize(getCapacity() / 2);
         return ret;
     }
 
@@ -61,7 +87,6 @@ public class LoopQueue<E> implements Queue<E> {
         tail = getSize();
     }
 
-    @Override
     public E getFront() {
         if (isEmpty())
             throw new IllegalArgumentException("Queue is empty.");
