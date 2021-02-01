@@ -1,5 +1,7 @@
 package com.xuan.algorithm.datastructure;
 
+import sun.jvm.hotspot.debugger.linux.LinuxDebugger;
+
 public class LinkedList<E> {
 
     private class Node {
@@ -63,13 +65,22 @@ public class LinkedList<E> {
 //            prev.next = new Node(e, prev.next);
 //        }
 
-        Node prev = dummyHead;
-        for (int i = 0; i < index; i++) {
-            prev = prev.next;
-        }
-        prev.next = new Node(e, prev.next);
-
+//        Node prev = dummyHead;
+//        for (int i = 0; i < index; i++) {
+//            prev = prev.next;
+//        }
+//        prev.next = new Node(e, prev.next);
+        dummyHead.next = add(dummyHead.next,index,e);
         size++;
+    }
+
+    private Node add(Node node,int index , E e){
+        if(index == 0){
+            return new Node(e,node);
+        }
+
+        node.next = add(node.next,index-1,e);
+        return node;
     }
 
     //在链表头添加新的元素e
@@ -134,6 +145,16 @@ public class LinkedList<E> {
         size--;
 
         return ret.e;
+    }
+
+    private Node remove(Node node, int index){
+
+        if(index == 0){
+            return node.next;
+        }
+
+        node.next = remove(node.next,index -1);
+        return node;
     }
 
     public E removeFirst(){
