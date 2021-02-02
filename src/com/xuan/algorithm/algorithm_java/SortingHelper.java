@@ -1,6 +1,7 @@
 package com.xuan.algorithm.algorithm_java;
 
 import com.xuan.algorithm.algorithm_java.sort.InsertionSort;
+import com.xuan.algorithm.algorithm_java.sort.MergeSort;
 import com.xuan.algorithm.algorithm_java.sort.SelectionSort;
 
 public class SortingHelper {
@@ -29,6 +30,8 @@ public class SortingHelper {
             SelectionSort.sort(arr);
         else if(sortName.equals("InsertionSort"))
             InsertionSort.sort(arr);
+        else if(sortName.equals("MergeSort"))
+            MergeSort.sort(arr);
         long endTime = System.nanoTime();
 
         double time = (endTime - startTime) / 1000000000.0;
