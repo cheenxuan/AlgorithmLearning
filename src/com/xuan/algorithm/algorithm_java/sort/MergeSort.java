@@ -40,7 +40,7 @@ public class MergeSort {
 ////        System.out.println(ret.toString());
 //    }
 
-//    public static <E extends Comparable<E>> void sort2(E[] arr) {
+    //    public static <E extends Comparable<E>> void sort2(E[] arr) {
 //        sort2(arr, 0, arr.length - 1, 0);
 //    }
 //
@@ -113,7 +113,7 @@ public class MergeSort {
 //            }
 //        }
 //    }
-
+    //自顶向下的归并排序
     public static <E extends Comparable<E>> void sort(E[] arr) {
         E[] temp = Arrays.copyOf(arr, arr.length);
         sort(arr, 0, arr.length - 1, temp);
@@ -122,8 +122,6 @@ public class MergeSort {
     private static <E extends Comparable<E>> void sort(E[] arr, int l, int r, E[] temp) {
         if (l >= r) return;
 
-        //r + l 在32位机上有可能越界
-//        int mid = (l + r) / 2;
         int mid = l + (r - l) / 2;
 
         sort(arr, l, mid, temp);
@@ -134,6 +132,24 @@ public class MergeSort {
         if (arr[mid].compareTo(arr[mid + 1]) > 0) {
             merge(arr, l, mid, r, temp);
         }
+    }
+
+    //自底向上的归并排序
+    public static <E extends Comparable<E>> void sortBU(E[] arr) {
+        E[] temp = Arrays.copyOf(arr, arr.length);
+        int n = arr.length;
+
+        for (int i = 0; i < n; i += 16) {
+            InsertionSort.sort(arr,i,Math.min(i + 15,n - 1));
+        }
+
+        for (int sz = 16; sz < n; sz += sz) {
+            //遍历合并的两个区间的起始位置
+            for (int i = 0; i + sz < n; i += sz + sz) {
+                merge(arr, i, i + sz - 1, Math.min(i + sz + sz - 1, n - 1), temp);
+            }
+        }
+
     }
 
     private static <E extends Comparable<E>> void merge(E[] arr, int l, int mid, int r, E[] temp) {
@@ -168,12 +184,14 @@ public class MergeSort {
         return res.toString();
     }
 
+
     public static void main(String[] args) {
         int[] dataSize = {5000000};
         for (int n : dataSize) {
             Integer[] arr = ArrayGenerator.generateRandomArray(n, n);
             Integer[] arr2 = Arrays.copyOf(arr, arr.length);
             SortingHelper.sortTest("MergeSort", arr);
+            SortingHelper.sortTest("MergeSortBU", arr2);
 
 
         }
