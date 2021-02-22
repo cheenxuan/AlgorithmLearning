@@ -116,20 +116,20 @@ public class MergeSort {
     //自顶向下的归并排序
     public static <E extends Comparable<E>> void sort(E[] arr) {
         E[] temp = Arrays.copyOf(arr, arr.length);
-        sort(arr, 0, arr.length - 1, temp);
+        sort(arr, 0, arr.length, temp);
     }
 
     private static <E extends Comparable<E>> void sort(E[] arr, int l, int r, E[] temp) {
-        if (l >= r) return;
+        if (r - l <= 1) return;
 
         int mid = l + (r - l) / 2;
 
         sort(arr, l, mid, temp);
 
-        sort(arr, mid + 1, r, temp);
+        sort(arr, mid, r, temp);
 
         //1.如果arr[mid + 1]的值大于arr[mid] 不执行merge
-        if (arr[mid].compareTo(arr[mid + 1]) > 0) {
+        if (arr[mid - 1].compareTo(arr[mid]) > 0) {
             merge(arr, l, mid, r, temp);
         }
     }
@@ -146,7 +146,7 @@ public class MergeSort {
         for (int sz = 16; sz < n; sz += sz) {
             //遍历合并的两个区间的起始位置
             for (int i = 0; i + sz < n; i += sz + sz) {
-                merge(arr, i, i + sz - 1, Math.min(i + sz + sz - 1, n - 1), temp);
+                merge(arr, i, i + sz, Math.min(i + sz + sz , n ), temp);
             }
         }
 
@@ -155,15 +155,15 @@ public class MergeSort {
     private static <E extends Comparable<E>> void merge(E[] arr, int l, int mid, int r, E[] temp) {
 
         //合并两个有序的区间arr[l,mid] 和 arr[mid + 1,r]
-        System.arraycopy(arr, l, temp, l, r - l + 1);
+        System.arraycopy(arr, l, temp, l, r - l);
 
-        int i = l, j = mid + 1;
-        for (int k = l; k <= r; k++) {
+        int i = l, j = mid;
+        for (int k = l; k < r; k++) {
 
-            if (i > mid) {
+            if (i >= mid) {
                 arr[k] = temp[j];
                 j++;
-            } else if (j > r) {
+            } else if (j >= r) {
                 arr[k] = temp[i];
                 i++;
             } else if (temp[i].compareTo(temp[j]) <= 0) {
@@ -186,7 +186,7 @@ public class MergeSort {
 
 
     public static void main(String[] args) {
-        int[] dataSize = {5000000};
+        int[] dataSize = {10000};
         for (int n : dataSize) {
             Integer[] arr = ArrayGenerator.generateRandomArray(n, n);
             Integer[] arr2 = Arrays.copyOf(arr, arr.length);
