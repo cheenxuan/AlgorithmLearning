@@ -22,4 +22,24 @@ public class ArrayGenerator {
             arr[i] = rnd.nextInt(bound);
         return arr;
     }
+
+    public static Integer[] generateSpecialArray(int n){
+        Integer[] arr = new Integer[n];
+        generateSpecialArray(arr, 0, arr.length - 1, 0);
+        return arr;
+    }
+    private static void generateSpecialArray(Integer[] arr, int l, int r, int value){
+        if(l > r) return;
+        int mid = (l + r) / 2;
+        arr[mid] = value;
+        swap(arr, l, mid);
+        generateSpecialArray(arr, l + 1, r, value + 1);
+        swap(arr, l, mid);
+    }
+    private static <E extends Comparable<E>> void swap(E[] arr, int i, int j){
+        E t = arr[i];
+        arr[i] = arr[j];
+        arr[j] = t;
+    }
+
 }
