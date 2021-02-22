@@ -2,7 +2,6 @@ package com.xuan.algorithm.algorithm_java.sort;
 
 import com.xuan.algorithm.algorithm_java.ArrayGenerator;
 import com.xuan.algorithm.algorithm_java.SortingHelper;
-
 import java.util.Arrays;
 import java.util.Random;
 
@@ -110,23 +109,59 @@ public class QuickSort {
 
         //arr[l+1 ...j] <= v;arr[j + 1 ... i] >= v
         int i = l + 1, j = r;
-        while(true){
-            while(i <= j && arr[i].compareTo(arr[l]) < 0 )
+        while (true) {
+            while (i <= j && arr[i].compareTo(arr[l]) < 0)
                 i++;
-            while(j >= i && arr[j].compareTo(arr[l]) > 0)
+            while (j >= i && arr[j].compareTo(arr[l]) > 0)
                 j--;
 
-            if(i >= j) break;
+            if (i >= j) break;
 
-            swap(arr,i,j);
+            swap(arr, i, j);
             i++;
             j--;
         }
 
-        swap(arr,l,j);
+        swap(arr, l, j);
 
         return j;
     }
+
+    public static <E extends Comparable<E>> void sort3ways(E[] arr) {
+        Random rnd = new Random();
+        sort3ways(arr, 0, arr.length - 1, rnd);
+    }
+
+    private static <E extends Comparable<E>> void sort3ways(E[] arr, int l, int r, Random rnd) {
+        if (l >= r) return;
+
+//        if (r - l <= 15) {
+//            InsertionSort.sort(arr, l, r);
+//            return; // 注意，这里要 return！
+//        }
+
+        int p = rnd.nextInt(r - l + 1) + l;
+        swap(arr, p, l);
+
+        int lt = l, i = l + 1, gt = r + 1;
+        while (i < gt) {
+            if (arr[i].compareTo(arr[l]) < 0) {
+                lt++;
+                swap(arr, i, lt);
+                i++;
+            } else if (arr[i].compareTo(arr[l]) > 0) {
+                gt--;
+                swap(arr, i, gt);
+            }else{
+                i++;
+            }
+        }
+        swap(arr,l,lt);
+
+        sort3ways(arr, l, lt - 1, rnd);
+        sort3ways(arr, gt, r, rnd);
+    }
+
 
     public static void main(String[] args) {
 
@@ -141,19 +176,25 @@ public class QuickSort {
         for (int n : dataSize) {
             Integer[] arr = ArrayGenerator.generateRandomArray(n, n);
             Integer[] arr2 = Arrays.copyOf(arr, arr.length);
+            Integer[] arr3 = Arrays.copyOf(arr, arr.length);
 //            Integer[] arr3 = ArrayGenerator.generateSpecialArray(n);
             SortingHelper.sortTest("QuickSort", arr);
             SortingHelper.sortTest("QuickSort2Ways", arr2);
+            SortingHelper.sortTest("QuickSort3Ways", arr3);
 
             arr = ArrayGenerator.generateOrderedArray(n);
             arr2 = Arrays.copyOf(arr, arr.length);
+            arr3 = Arrays.copyOf(arr, arr.length);
             SortingHelper.sortTest("QuickSort", arr);
             SortingHelper.sortTest("QuickSort2Ways", arr2);
+            SortingHelper.sortTest("QuickSort3Ways", arr3);
 
             arr = ArrayGenerator.generateRandomArray(n, 1);
             arr2 = Arrays.copyOf(arr, arr.length);
+            arr3 = Arrays.copyOf(arr, arr.length);
             SortingHelper.sortTest("QuickSort2Ways", arr2);
-            SortingHelper.sortTest("QuickSort", arr);
+            SortingHelper.sortTest("QuickSort3Ways", arr3);
+//            SortingHelper.sortTest("QuickSort", arr);
 
         }
     }
