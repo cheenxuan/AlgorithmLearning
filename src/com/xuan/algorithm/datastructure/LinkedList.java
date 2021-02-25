@@ -1,6 +1,5 @@
 package com.xuan.algorithm.datastructure;
 
-import sun.jvm.hotspot.debugger.linux.LinuxDebugger;
 
 public class LinkedList<E> {
 
