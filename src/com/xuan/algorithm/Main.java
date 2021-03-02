@@ -1,7 +1,9 @@
 package com.xuan.algorithm;
 
 import com.xuan.algorithm.datastructure.*;
+import com.xuan.algorithm.tools.FileOperatior;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Main {
@@ -37,19 +39,19 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
-        int opCount = 100000;
-        ArrayQueue<Integer> arrayQueue = new ArrayQueue<>();
-        double time1 = testQueue(arrayQueue,opCount);
-        System.out.println("ArrayQueue, time: " +time1+" s");
-
-        LoopQueue<Integer> loopQueue = new LoopQueue<>();
-        double time2 = testQueue(loopQueue,opCount);
-        System.out.println("LoopQueue, time: " + time2 + " s");
-
-        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
-        double time3 = testQueue(linkedListQueue,opCount);
-        System.out.println("LinkedListQueue, time: " + time3 + "s");
+//
+//        int opCount = 100000;
+//        ArrayQueue<Integer> arrayQueue = new ArrayQueue<>();
+//        double time1 = testQueue(arrayQueue,opCount);
+//        System.out.println("ArrayQueue, time: " +time1+" s");
+//
+//        LoopQueue<Integer> loopQueue = new LoopQueue<>();
+//        double time2 = testQueue(loopQueue,opCount);
+//        System.out.println("LoopQueue, time: " + time2 + " s");
+//
+//        LinkedListQueue<Integer> linkedListQueue = new LinkedListQueue<>();
+//        double time3 = testQueue(linkedListQueue,opCount);
+//        System.out.println("LinkedListQueue, time: " + time3 + "s");
 
 
 //        int opCount = 1000000;
@@ -60,5 +62,17 @@ public class Main {
 //        LinkedListStack<Integer> linkedListStack = new LinkedListStack<>();
 //        double time2 = testStack(linkedListStack, opCount);
 //        System.out.println("LinkedListStack: time = " + time2 + "s");
+
+        System.out.println("BBC - US");
+        ArrayList<String> words1 = new ArrayList<>();
+        FileOperatior.readFile("src/bbc.txt", words1);
+        System.out.println("Total words: " + words1.size());
+
+        LinkedListSet<String> set1 = new LinkedListSet<>();
+        for (String word : words1) {
+            set1.add(word);
+        }
+
+        System.out.println("Total different words: "  + set1.getSize());
     }
 }

@@ -146,6 +146,30 @@ public class LinkedList<E> {
         return ret.e;
     }
 
+    public E removeElement(E e) {
+        if (e == null)
+            throw new IllegalArgumentException("Remove failed. e == null");
+
+        if(!this.contains(e))
+            throw new IllegalArgumentException("Remove failed. this is no e in the list");
+
+        Node prev = dummyHead;
+        for (int i = 0; i < size; i++) {
+            if(prev.next.e.equals(e)){
+                break;
+            }
+            prev = prev.next;
+        }
+
+        Node ret = prev.next;
+        prev.next = ret.next;
+        ret.next = null;
+        size--;
+
+        return ret.e;
+
+    }
+
     private Node remove(Node node, int index){
 
         if(index == 0){
@@ -206,10 +230,16 @@ public class LinkedList<E> {
         linkedList.remove(2);
         System.out.println(linkedList);
 
-        linkedList.removeFirst();
+        linkedList.add(1,1);
         System.out.println(linkedList);
 
-        linkedList.removeLast();
+//        linkedList.removeFirst();
+//        System.out.println(linkedList);
+//
+//        linkedList.removeLast();
+//        System.out.println(linkedList);
+
+        linkedList.removeElement(1);
         System.out.println(linkedList);
     }
 
