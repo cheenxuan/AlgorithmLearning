@@ -38,18 +38,40 @@ public class Main {
         return (endTime - startTime) / 1000000000.0;
     }
 
-    public static double testSet(Set<String> set,String fileName){
+    public static double testSet(Set<String> set, String fileName) {
         long startTime = System.nanoTime();
 
         System.out.println(fileName);
         ArrayList<String> words = new ArrayList<>();
-        if(FileOperatior.readFile(fileName,words)){
+        if (FileOperatior.readFile(fileName, words)) {
             System.out.println("Total words: " + words.size());
 
-            for (String word:words)
+            for (String word : words)
                 set.add(word);
             System.out.println("Total different words: " + set.getSize());
         }
+        long endTime = System.nanoTime();
+
+        return (endTime - startTime) / 1000000000.0;
+    }
+
+    public static double testMap(Map<String, Integer> map, String fileName) {
+        long startTime = System.nanoTime();
+
+        System.out.println(fileName);
+        ArrayList<String> words = new ArrayList<>();
+        if (FileOperatior.readFile(fileName, words)) {
+            System.out.println("Total words: " + words.size());
+
+            for (String word : words)
+                if (map.contains(word))
+                    map.set(word, map.get(word) + 1);
+                else
+                    map.add(word, 1);
+            System.out.println("Total different words: " + map.getSize());
+        }
+
+//        System.out.println(String.format("this file contains word %s show nums %d","the",map.get("the")));
         long endTime = System.nanoTime();
 
         return (endTime - startTime) / 1000000000.0;
@@ -92,15 +114,15 @@ public class Main {
 //
 //        System.out.println("Total different words: "  + set1.getSize());
 
-        String fileName = "src/bbc.txt";
-        BSTSet<String> bstSet = new BSTSet<>();
-        double tiem1 = testSet(bstSet, fileName);
-        System.out.println("BST Set: " + tiem1 + " s");
+        String fileName = "Pride and Prejudice.txt";
+        BSTMap<String,Integer> bstSet = new BSTMap<>();
+        double tiem1 = testMap(bstSet, fileName);
+        System.out.println("BST Map: " + tiem1 + " s");
 
         System.out.println();
 
-        LinkedListSet<String> linkedListSet = new LinkedListSet<>();
-        double time2 = testSet(linkedListSet, fileName);
-        System.out.println("LinkedList Set: " + time2 + " s");
+        LinkedListMap<String,Integer> linkedListSet = new LinkedListMap<>();
+        double time2 = testMap(linkedListSet, fileName);
+        System.out.println("LinkedList Map: " + time2 + " s");
     }
 }
