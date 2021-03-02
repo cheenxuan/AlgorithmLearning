@@ -161,13 +161,21 @@ public class LinkedList<E> {
             prev = prev.next;
         }
 
-        Node ret = prev.next;
-        prev.next = ret.next;
-        ret.next = null;
-        size--;
+        while (prev.next != null) {
+            if(prev.next.e.equals(e))
+                break;
+            prev = prev.next;
+        }
 
-        return ret.e;
+        if (prev.next != null) {
+            Node delNode = prev.next;
+            prev.next = delNode.next;
+            delNode.next = null;
+            size--;
 
+            return delNode.e;
+        }
+        return null;
     }
 
     private Node remove(Node node, int index){

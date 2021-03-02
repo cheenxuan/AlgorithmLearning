@@ -38,6 +38,23 @@ public class Main {
         return (endTime - startTime) / 1000000000.0;
     }
 
+    public static double testSet(Set<String> set,String fileName){
+        long startTime = System.nanoTime();
+
+        System.out.println(fileName);
+        ArrayList<String> words = new ArrayList<>();
+        if(FileOperatior.readFile(fileName,words)){
+            System.out.println("Total words: " + words.size());
+
+            for (String word:words)
+                set.add(word);
+            System.out.println("Total different words: " + set.getSize());
+        }
+        long endTime = System.nanoTime();
+
+        return (endTime - startTime) / 1000000000.0;
+    }
+
     public static void main(String[] args) {
 //
 //        int opCount = 100000;
@@ -63,16 +80,27 @@ public class Main {
 //        double time2 = testStack(linkedListStack, opCount);
 //        System.out.println("LinkedListStack: time = " + time2 + "s");
 
-        System.out.println("BBC - US");
-        ArrayList<String> words1 = new ArrayList<>();
-        FileOperatior.readFile("src/bbc.txt", words1);
-        System.out.println("Total words: " + words1.size());
+//        System.out.println("BBC - US");
+//        ArrayList<String> words1 = new ArrayList<>();
+//        FileOperatior.readFile("src/bbc.txt", words1);
+//        System.out.println("Total words: " + words1.size());
+//
+//        LinkedListSet<String> set1 = new LinkedListSet<>();
+//        for (String word : words1) {
+//            set1.add(word);
+//        }
+//
+//        System.out.println("Total different words: "  + set1.getSize());
 
-        LinkedListSet<String> set1 = new LinkedListSet<>();
-        for (String word : words1) {
-            set1.add(word);
-        }
+        String fileName = "src/bbc.txt";
+        BSTSet<String> bstSet = new BSTSet<>();
+        double tiem1 = testSet(bstSet, fileName);
+        System.out.println("BST Set: " + tiem1 + " s");
 
-        System.out.println("Total different words: "  + set1.getSize());
+        System.out.println();
+
+        LinkedListSet<String> linkedListSet = new LinkedListSet<>();
+        double time2 = testSet(linkedListSet, fileName);
+        System.out.println("LinkedList Set: " + time2 + " s");
     }
 }
