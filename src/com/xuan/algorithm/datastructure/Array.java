@@ -1,5 +1,7 @@
 package com.xuan.algorithm.datastructure;
 
+import java.util.Objects;
+
 public class Array<E> {
 
     private E[] data;
@@ -20,6 +22,15 @@ public class Array<E> {
     public Array(int capacity) {
         data = (E[]) new Object[capacity];
         size = 0;
+    }
+
+    public Array(E[] arr){
+        data = (E[]) new Object[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            data[i] = arr[i];
+        }
+        size = arr.length;
     }
 
     /**
@@ -211,5 +222,14 @@ public class Array<E> {
 
     public E getFirst(){
         return get(0);
+    }
+
+    public void swap(int i, int j) {
+        if (i < 0 || i >= size || j < 0 || j >= size)
+            throw new IllegalArgumentException("index is illegal");
+
+        E t = data[i];
+        data[i] = data[j];
+        data[j] = t;
     }
 }
