@@ -1,7 +1,5 @@
 package com.xuan.algorithm.datastructure;
 
-import java.util.Objects;
-
 public class Array<E> {
 
     private E[] data;
