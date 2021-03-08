@@ -20,10 +20,7 @@ public class ShellSort {
         int h = data.length / 2;
 
         while (h >= 1) {
-
-            for (int start = 0; start < h; start++) {
-
-                for (int i = start + h; i < data.length; i += h) {
+                for (int i = h; i < data.length; i ++) {
                     E t = data[i];
                     int j;
                     for (j = i; j - h >= 0 && t.compareTo(data[j - h]) < 0; j -= h) {
@@ -31,8 +28,32 @@ public class ShellSort {
                     }
                     data[j] = t;
                 }
-            }
+
             h /= 2;
+        }
+    }
+
+    /**
+     * 希尔排序法
+     * @param data
+     * @param <E>
+     */
+    public static <E extends Comparable<E>> void sort2(E[] data) {
+
+        int h = 1;
+        while (h < data.length) h = h * 3 + 1;
+
+        while (h >= 1) {
+            for (int i = h; i < data.length; i ++) {
+                E t = data[i];
+                int j;
+                for (j = i; j - h >= 0 && t.compareTo(data[j - h]) < 0; j -= h) {
+                    data[j] = data[j - h];
+                }
+                data[j] = t;
+            }
+
+            h /= 3;
         }
     }
 
@@ -43,8 +64,9 @@ public class ShellSort {
             Integer[] arr2 = Arrays.copyOf(arr, arr.length);
             Integer[] arr3 = Arrays.copyOf(arr, arr.length);
 
-            SortingHelper.sortTest("MergeSort", arr2);
-            SortingHelper.sortTest("ShellSort", arr3);
+            SortingHelper.sortTest("MergeSort", arr);
+            SortingHelper.sortTest("ShellSort", arr2);
+            SortingHelper.sortTest("ShellSort2", arr3);
 
         }
     }
