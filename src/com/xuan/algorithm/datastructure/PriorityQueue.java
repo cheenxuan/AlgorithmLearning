@@ -1,5 +1,7 @@
 package com.xuan.algorithm.datastructure;
 
+import java.util.Comparator;
+
 public class PriorityQueue<E extends Comparable<E>> implements Queue<E>{
 
     private MaxHeap<E> maxHeap;
@@ -7,6 +9,7 @@ public class PriorityQueue<E extends Comparable<E>> implements Queue<E>{
     public PriorityQueue() {
         maxHeap = new MaxHeap<>();
     }
+
 
     @Override
     public int getSize() {

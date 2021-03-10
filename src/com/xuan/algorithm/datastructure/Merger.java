@@ -1,0 +1,6 @@
+package com.xuan.algorithm.datastructure;
+
+public interface Merger<E> {
+
+    E merge(E a, E b);
+}
