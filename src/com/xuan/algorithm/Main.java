@@ -174,23 +174,23 @@ public class Main {
 //        double time2 = testMap(linkedListSet, fileName);
 //        System.out.println("LinkedList Map: " + time2 + " s");
 
-        int n = 100000;
+//        int n = 100000;
 
 //        MaxHeap<Integer> maxHeap = new MaxHeap<>();
 //        MinHeap<Integer> minHeap = new MinHeap<>();
-        Integer[] testData = new Integer[n];
-        Random random = new Random();
-        for (int i = 0; i < n; i++) {
+//        Integer[] testData = new Integer[n];
+//        Random random = new Random();
+//        for (int i = 0; i < n; i++) {
 //            maxHeap.add(random.nextInt(Integer.MAX_VALUE));
 //                minHeap.add(random.nextInt(Integer.MAX_VALUE));
-            testData[i] = random.nextInt(Integer.MAX_VALUE);
-        }
-
-        double time1 = testHeap(testData, false, false);
-        System.out.println("MinHeap without heapify time: " + time1 + " s");
-
-        double time2 = testHeap(testData, false, true);
-        System.out.println("MinHeap with heapify time: " + time2 + " s");
+//            testData[i] = random.nextInt(Integer.MAX_VALUE);
+//        }
+//
+//        double time1 = testHeap(testData, false, false);
+//        System.out.println("MinHeap without heapify time: " + time1 + " s");
+//
+//        double time2 = testHeap(testData, false, true);
+//        System.out.println("MinHeap with heapify time: " + time2 + " s");
 
 //        int[] arr = new int[n];
 //        for (int i = 0; i < n; i++) {
@@ -203,6 +203,40 @@ public class Main {
 //        }
 //
 //        System.out.println("Test MaxHeap completed.");
+
+        System.out.println("Pride and Prejudice");
+
+        String fileName = "Pride and Prejudice.txt";
+        ArrayList<String> words = new ArrayList<>();
+
+
+        if (FileOperatior.readFile(fileName, words)) {
+            long startTime = System.nanoTime();
+            BSTSet<String> set = new BSTSet<>();
+            for (String word : words)
+                set.add(word);
+
+            for (String word : words)
+                set.contains(word);
+
+            long endTime = System.nanoTime();
+            double time = (endTime - startTime) / 1000000000.0;
+            System.out.println("Total different words: " + set.getSize());
+            System.out.println("BSTSet : " + time +" s");
+
+            startTime = System.nanoTime();
+            Trie trie = new Trie();
+            for (String word : words)
+                trie.add2(word);
+
+            for (String word : words)
+                trie.contains(word);
+
+            endTime = System.nanoTime();
+            time = (endTime - startTime) / 1000000000.0;
+            System.out.println("Total different words: " + trie.getSize());
+            System.out.println("Trie : " + time +" s");
+        }
 
 
     }
