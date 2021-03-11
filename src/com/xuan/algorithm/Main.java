@@ -126,6 +126,29 @@ public class Main {
         return (endTime - startTime) / 100000000.0;
     }
 
+    private static double testUF(UF uf,int m) {
+        int size = uf.getSize();
+        Random random = new Random();
+        long startTime = System.nanoTime();
+
+        for (int i = 0; i < m; i++) {
+            int a = random.nextInt(size);
+            int b = random.nextInt(size);
+
+            uf.unionElement(a, b);
+        }
+
+        for (int i = 0; i < m; i++) {
+            int a = random.nextInt(size);
+            int b = random.nextInt(size);
+
+            uf.isConnected(a, b);
+        }
+
+        long endTime = System.nanoTime();
+        return (endTime - startTime) / 1000000000.0;
+    }
+
     public static void main(String[] args) {
 //
 //        int opCount = 100000;
@@ -204,39 +227,61 @@ public class Main {
 //
 //        System.out.println("Test MaxHeap completed.");
 
-        System.out.println("Pride and Prejudice");
+//        System.out.println("Pride and Prejudice");
+//
+//        String fileName = "Pride and Prejudice.txt";
+//        ArrayList<String> words = new ArrayList<>();
+//
+//
+//        if (FileOperatior.readFile(fileName, words)) {
+//            long startTime = System.nanoTime();
+//            BSTSet<String> set = new BSTSet<>();
+//            for (String word : words)
+//                set.add(word);
+//
+//            for (String word : words)
+//                set.contains(word);
+//
+//            long endTime = System.nanoTime();
+//            double time = (endTime - startTime) / 1000000000.0;
+//            System.out.println("Total different words: " + set.getSize());
+//            System.out.println("BSTSet : " + time +" s");
+//
+//            startTime = System.nanoTime();
+//            Trie trie = new Trie();
+//            for (String word : words)
+//                trie.add2(word);
+//
+//            for (String word : words)
+//                trie.contains(word);
+//
+//            endTime = System.nanoTime();
+//            time = (endTime - startTime) / 1000000000.0;
+//            System.out.println("Total different words: " + trie.getSize());
+//            System.out.println("Trie : " + time +" s");
+//        }
 
-        String fileName = "Pride and Prejudice.txt";
-        ArrayList<String> words = new ArrayList<>();
+        //testUF
+        int size = 10000000;
+        int m = 10000000;
 
+//        UnionFind1 uf1 = new UnionFind1(size);
+//        System.out.println("UnionFind1 : " + testUF(uf1,m) + " s");
+//
+//        UnionFind2 uf2 = new UnionFind2(size);
+//        System.out.println("UnionFind2 : " + testUF(uf2,m) + " s");
 
-        if (FileOperatior.readFile(fileName, words)) {
-            long startTime = System.nanoTime();
-            BSTSet<String> set = new BSTSet<>();
-            for (String word : words)
-                set.add(word);
+        UnionFind3 uf3 = new UnionFind3(size);
+        System.out.println("UnionFind3 : " + testUF(uf3,m) + " s");
 
-            for (String word : words)
-                set.contains(word);
+        UnionFind4 uf4 = new UnionFind4(size);
+        System.out.println("UnionFind4 : " + testUF(uf4,m) + " s");
 
-            long endTime = System.nanoTime();
-            double time = (endTime - startTime) / 1000000000.0;
-            System.out.println("Total different words: " + set.getSize());
-            System.out.println("BSTSet : " + time +" s");
+        UnionFind5 uf5 = new UnionFind5(size);
+        System.out.println("UnionFind5 : " + testUF(uf5,m) + " s");
 
-            startTime = System.nanoTime();
-            Trie trie = new Trie();
-            for (String word : words)
-                trie.add2(word);
-
-            for (String word : words)
-                trie.contains(word);
-
-            endTime = System.nanoTime();
-            time = (endTime - startTime) / 1000000000.0;
-            System.out.println("Total different words: " + trie.getSize());
-            System.out.println("Trie : " + time +" s");
-        }
+        UnionFind6 uf6 = new UnionFind6(size);
+        System.out.println("UnionFind6 : " + testUF(uf6,m) + " s");
 
 
     }
