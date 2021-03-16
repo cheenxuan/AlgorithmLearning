@@ -3,7 +3,9 @@ package com.xuan.algorithm;
 import com.xuan.algorithm.datastructure.*;
 import com.xuan.algorithm.tools.FileOperatior;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Main {
@@ -187,6 +189,23 @@ public class Main {
 //        System.out.println("Total different words: "  + set1.getSize());
 
 //        String fileName = "Pride and Prejudice.txt";
+//        BSTSet<String> bstSet = new BSTSet<>();
+//        double tiem1 = testSet(bstSet, fileName);
+//        System.out.println("BST Set: " + tiem1 + " s");
+//
+//        System.out.println();
+//
+//        LinkedListSet<String> linkedListSet = new LinkedListSet<>();
+//        double time2 = testSet(linkedListSet, fileName);
+//        System.out.println("LinkedList Set: " + time2 + " s");
+//
+//        System.out.println();
+//
+//        AVLSet<String> avlSet = new AVLSet<>();
+//        double time3 = testSet(avlSet, fileName);
+//        System.out.println("AVL Set: " + time3 + " s");
+
+//        String fileName = "Pride and Prejudice.txt";
 //        BSTMap<String,Integer> bstSet = new BSTMap<>();
 //        double tiem1 = testMap(bstSet, fileName);
 //        System.out.println("BST Map: " + tiem1 + " s");
@@ -196,6 +215,12 @@ public class Main {
 //        LinkedListMap<String,Integer> linkedListSet = new LinkedListMap<>();
 //        double time2 = testMap(linkedListSet, fileName);
 //        System.out.println("LinkedList Map: " + time2 + " s");
+//
+//        System.out.println();
+//
+//        AVLMap<String,Integer> avlMap = new AVLMap<>();
+//        double time3 = testMap(avlMap, fileName);
+//        System.out.println("AVL Map: " + time3 + " s");
 
 //        int n = 100000;
 
@@ -262,8 +287,8 @@ public class Main {
 //        }
 
         //testUF
-        int size = 10000000;
-        int m = 10000000;
+//        int size = 10000000;
+//        int m = 10000000;
 
 //        UnionFind1 uf1 = new UnionFind1(size);
 //        System.out.println("UnionFind1 : " + testUF(uf1,m) + " s");
@@ -271,18 +296,74 @@ public class Main {
 //        UnionFind2 uf2 = new UnionFind2(size);
 //        System.out.println("UnionFind2 : " + testUF(uf2,m) + " s");
 
-        UnionFind3 uf3 = new UnionFind3(size);
-        System.out.println("UnionFind3 : " + testUF(uf3,m) + " s");
+//        UnionFind3 uf3 = new UnionFind3(size);
+//        System.out.println("UnionFind3 : " + testUF(uf3,m) + " s");
+//
+//        UnionFind4 uf4 = new UnionFind4(size);
+//        System.out.println("UnionFind4 : " + testUF(uf4,m) + " s");
+//
+//        UnionFind5 uf5 = new UnionFind5(size);
+//        System.out.println("UnionFind5 : " + testUF(uf5,m) + " s");
+//
+//        UnionFind6 uf6 = new UnionFind6(size);
+//        System.out.println("UnionFind6 : " + testUF(uf6,m) + " s");
 
-        UnionFind4 uf4 = new UnionFind4(size);
-        System.out.println("UnionFind4 : " + testUF(uf4,m) + " s");
+        String fileName = "Pride and Prejudice.txt";
+        ArrayList<String> words = new ArrayList<>();
+        if (FileOperatior.readFile(fileName, words)) {
 
-        UnionFind5 uf5 = new UnionFind5(size);
-        System.out.println("UnionFind5 : " + testUF(uf5,m) + " s");
+            Collections.sort(words);
 
-        UnionFind6 uf6 = new UnionFind6(size);
-        System.out.println("UnionFind6 : " + testUF(uf6,m) + " s");
+            long startTime = System.nanoTime();
+            BSTMap<String, Integer> bst = new BSTMap<>();
+            for (String word : words) {
+                if (bst.contains(word))
+                    bst.set(word, bst.get(word) + 1);
+                else
+                    bst.add(word, 1);
+            }
 
+//            for (String word : words)
+//                bst.contains(word);
 
+            long endTime = System.nanoTime();
+
+            double time = (endTime - startTime) / 1000000000.0;
+
+            System.out.println("BST time : " + time +" s");
+
+            startTime = System.nanoTime();
+            AVLTree<String, Integer> map = new AVLTree<>();
+            for (String word : words) {
+                if (map.contains(word))
+                    map.set(word, map.get(word) + 1);
+                else
+                    map.add(word, 1);
+            }
+
+//            for (String word : words)
+//                map.contains(word);
+
+            endTime = System.nanoTime();
+            time = (endTime - startTime)  / 1000000000.0;
+            System.out.println("AVLTree time : " + time + " s");
+
+            startTime = System.nanoTime();
+            RBTree<String, Integer> rbTree = new RBTree<>();
+            for (String word : words) {
+                if (rbTree.contains(word))
+                    rbTree.set(word, rbTree.get(word) + 1);
+                else
+                    rbTree.add(word, 1);
+            }
+
+//            for (String word : words)
+//                rbTree.contains(word);
+
+            endTime = System.nanoTime();
+            time = (endTime - startTime)  / 1000000000.0;
+            System.out.println("RBTree time : " + time + " s");
+
+        }
     }
 }

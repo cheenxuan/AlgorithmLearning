@@ -1,7 +1,6 @@
 package com.xuan.algorithm.datastructure;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Stack;
 
 public class BST<E extends Comparable<E>> {
