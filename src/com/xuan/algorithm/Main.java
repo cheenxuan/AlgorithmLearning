@@ -323,8 +323,8 @@ public class Main {
                     bst.add(word, 1);
             }
 
-//            for (String word : words)
-//                bst.contains(word);
+            for (String word : words)
+                bst.contains(word);
 
             long endTime = System.nanoTime();
 
@@ -341,8 +341,8 @@ public class Main {
                     map.add(word, 1);
             }
 
-//            for (String word : words)
-//                map.contains(word);
+            for (String word : words)
+                map.contains(word);
 
             endTime = System.nanoTime();
             time = (endTime - startTime)  / 1000000000.0;
@@ -357,12 +357,29 @@ public class Main {
                     rbTree.add(word, 1);
             }
 
-//            for (String word : words)
-//                rbTree.contains(word);
+            for (String word : words)
+                rbTree.contains(word);
 
             endTime = System.nanoTime();
             time = (endTime - startTime)  / 1000000000.0;
             System.out.println("RBTree time : " + time + " s");
+
+
+            startTime = System.nanoTime();
+            HashTable<String, Integer> hashTable = new HashTable<>();
+            for (String word : words) {
+                if (hashTable.contains(word))
+                    hashTable.set(word, hashTable.get(word) + 1);
+                else
+                    hashTable.add(word, 1);
+            }
+
+            for (String word : words)
+                hashTable.contains(word);
+
+            endTime = System.nanoTime();
+            time = (endTime - startTime)  / 1000000000.0;
+            System.out.println("HashTable time : " + time + " s");
 
         }
     }
